@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import './InputComponent.css'; // Reemplaza "tu-archivo-de-estilo.css" con el nombre de tu archivo CSS
-import ResponseComponent from '../ResponseComponent/ResponseComponent'; // Asegúrate de usar la ruta correcta
-
-
+import './InputComponent.css'; 
+import ResponseComponent from '../ResponseComponent/ResponseComponent';
 
 function App1() {
   const [step, setStep] = useState(1);
+  const [showResponse, setShowResponse] = useState(false);
   const [answers, setAnswers] = useState({
     question1: '',
     question2: '',
@@ -22,7 +21,7 @@ function App1() {
   };
 
   const handleGenerate = () => {
-    // Lógica para generar el resultado
+    setShowResponse(true);
     console.log('Respuestas:', answers);
   };
 
@@ -53,10 +52,10 @@ function App1() {
             name="question2"
             value={answers.question2}
             onChange={handleInputChange}
-            className="input" // Agrega la clase "input" al input
+            className="input" 
           />
           
-        <button onClick={handleNext} className="button">Siguiente</button> {/* Añade la clase "button" al botón */}
+          <button onClick={handleNext} className="button">Siguiente</button>
         </div>
         </div>
       )}
@@ -70,18 +69,17 @@ function App1() {
             name="question3"
             value={answers.question3}
             onChange={handleInputChange}
-            className="input" // Agrega la clase "input" al input
+            className="input" 
           />
           
           <button onClick={handleGenerate} className="button">Generar</button>
 
           {showResponse && <ResponseComponent answers={answers} />}
-
         </div>
         </div>
       )}
     </div>
   );
-      }  
+}
 
 export default App1;
