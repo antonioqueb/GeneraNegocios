@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './ResponseComponent.css';
 import Modal from 'react-modal';
+import { Configuration, OpenAIApi } from "openai";
 
 Modal.setAppElement('#root'); // Esta línea se necesita para la accesibilidad
 
@@ -17,37 +18,20 @@ class ResponseComponent extends Component {
     this.getGptResponse();
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.answers !== prevProps.answers) {
-      this.getGptResponse();
-    }
-  }
-
   async getGptResponse() {
-    const requestBody = {
-      prompt: `Generar idea de negocio basada en:
-      Pasión/Actividad: ${this.props.answers.question1}
-      Habilidades/Experiencias: ${this.props.answers.question2}
-      Clientes/Competencia: ${this.props.answers.question3}`,
-      max_tokens: 200,
-    };
+    const configuration = new Configuration({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+    const openai = new OpenAIApi(configuration);
 
     try {
-      const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
-        },
-        body: JSON.stringify(requestBody)
+      const chatCompletion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content: "Hello world" }],
       });
-
-      const data = await response.json();
-      const gptResponse = data.choices[0].text;
-      this.setState({ gptResponse, modalIsOpen: true });
-      this.props.onResponseGenerated(gptResponse); // Llama a la función proporcionada a través de props
+      this.setState({ gptResponse: chatCompletion.data.choices[0].message, modalIsOpen: true });
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   }
 
