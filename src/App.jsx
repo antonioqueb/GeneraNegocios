@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <div>
-        <h1>¡Genera con IA una idea de negocio ganadora en tan solo 3 simples pasos!</h1>
+        <h2>¡Genera con IA una idea de negocio ganadora en tan solo 3 simples pasos!</h2>
       
           <img src={logotipo} className="logo" alt="Vite logo" />
 
