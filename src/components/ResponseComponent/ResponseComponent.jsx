@@ -10,6 +10,7 @@ class ResponseComponent extends Component {
     this.state = {
       gptResponse: '',
       modalIsOpen: false,
+      isLoading: false, // Nuevo estado para la carga
     };
   }
 
@@ -24,6 +25,8 @@ class ResponseComponent extends Component {
   }
 
   async getGptResponse() {
+    this.setState({ isLoading: true }); // Inicio de la carga
+
     const requestBody = {
       model: "gpt-3.5-turbo",
       messages: [
@@ -47,17 +50,16 @@ class ResponseComponent extends Component {
   
       const data = await response.json();
       if (data && data.content) {
-        this.setState({ gptResponse: data.content, modalIsOpen: true });
+        this.setState({ gptResponse: data.content, modalIsOpen: true, isLoading: false }); // Final de la carga
       } else {
         console.error('Invalid response:', data);
       }
   
     } catch (error) {
       console.error('Error:', error);
+      this.setState({ isLoading: false }); // Final de la carga en caso de error
     }
   }
-  
-  
 
   closeModal = () => {
     this.setState({ modalIsOpen: false });
@@ -70,6 +72,7 @@ class ResponseComponent extends Component {
   render() {
     return (
       <div className="response-container">
+        {this.state.isLoading && <div className="loader"></div>} {/* Animación de carga */}
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -86,4 +89,3 @@ class ResponseComponent extends Component {
 }
 
 export default ResponseComponent;
-//ok
