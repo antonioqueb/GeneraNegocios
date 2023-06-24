@@ -33,16 +33,18 @@ class ResponseComponent extends Component {
 
   async getGptResponse() {
     const requestBody = {
-      prompt: `Generar idea de negocio basada en:
-      Pasión/Actividad: ${this.props.answers.question1}
-      Habilidades/Experiencias: ${this.props.answers.question2}
-      Clientes/Competencia: ${this.props.answers.question3}`,
-      max_tokens: 200,
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: "Generar idea de negocio basada en:" },
+        { role: "user", content: `Pasión/Actividad: ${this.props.answers.question1}` },
+        { role: "user", content: `Habilidades/Experiencias: ${this.props.answers.question2}` },
+        { role: "user", content: `Clientes/Competencia: ${this.props.answers.question3}` },
+      ],
     };
-
+  
     try {
-      const response = await openai.completions.create(requestBody);
-      const data = response.choices[0].text;
+      const response = await openai.createChatCompletion(requestBody);
+      const data = response.data.choices[0].message.content;
       this.setState({ gptResponse: data, modalIsOpen: true });
     } catch (error) {
       console.error('Error:', error);
