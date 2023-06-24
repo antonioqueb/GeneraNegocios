@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import './ResponseComponent.css';
 import Modal from 'react-modal';
-import { Configuration, OpenAIApi } from "openai";
-
-require('dotenv').config();
-
+import { Configuration, OpenAIApi } from 'openai';
 
 Modal.setAppElement('#root'); // Esta línea se necesita para la accesibilidad
+
+const configuration = new Configuration({
+  organization: 'org-Ypd7CxP5BN0mCzEXcWCvREwr',
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
 
 class ResponseComponent extends Component {
   constructor(props) {
@@ -21,20 +25,27 @@ class ResponseComponent extends Component {
     this.getGptResponse();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.answers !== prevProps.answers) {
+      this.getGptResponse();
+    }
+  }
+
   async getGptResponse() {
-    const configuration = new Configuration({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-    const openai = new OpenAIApi(configuration);
+    const requestBody = {
+      prompt: `Generar idea de negocio basada en:
+      Pasión/Actividad: ${this.props.answers.question1}
+      Habilidades/Experiencias: ${this.props.answers.question2}
+      Clientes/Competencia: ${this.props.answers.question3}`,
+      max_tokens: 200,
+    };
 
     try {
-      const chatCompletion = await openai.createChatCompletion({
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: "Hello world" }],
-      });
-      this.setState({ gptResponse: chatCompletion.data.choices[0].message, modalIsOpen: true });
+      const response = await openai.completions.create(requestBody);
+      const data = response.choices[0].text;
+      this.setState({ gptResponse: data, modalIsOpen: true });
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   }
 
