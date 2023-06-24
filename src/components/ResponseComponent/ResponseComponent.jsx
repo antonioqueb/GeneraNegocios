@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import './ResponseComponent.css'; // Reemplaza "tu-archivo-de-estilo.css" con el nombre de tu archivo CSS
+import './ResponseComponent.css';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root'); // Esta línea se necesita para la accesibilidad
 
 class ResponseComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       gptResponse: '',
+      modalIsOpen: false,
     };
   }
 
@@ -28,7 +32,7 @@ class ResponseComponent extends Component {
       'max_tokens': 200,
     };
 
-    const response = await fetch('/v1/engines/davinci-codex/completions', {
+    const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,14 +42,30 @@ class ResponseComponent extends Component {
     });
 
     const data = await response.json();
-    this.setState({ gptResponse: data.choices[0].text });
+    this.setState({ gptResponse: data.choices[0].text, modalIsOpen: true });
   }
+
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
+  };
+
+  copyToClipboard = () => {
+    navigator.clipboard.writeText(this.state.gptResponse);
+  };
 
   render() {
     return (
       <div className="response-container">
-        <h2>Idea de Negocio Generada</h2>
-        <p>{this.state.gptResponse}</p>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          contentLabel="Idea de Negocio Generada"
+        >
+          <h2>Idea de Negocio Generada</h2>
+          <p>{this.state.gptResponse}</p>
+          <button onClick={this.copyToClipboard}>Copiar al portapapeles</button>
+          <button onClick={this.closeModal}>Cerrar</button>
+        </Modal>
       </div>
     );
   }
