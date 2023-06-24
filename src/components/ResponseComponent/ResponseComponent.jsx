@@ -71,7 +71,7 @@ class ResponseComponent extends Component {
           contentLabel="Idea de Negocio Generada"
         >
           <h2>Idea de Negocio Generada</h2>
-          <p>{this.state.gptResponse}</p>
+          <p>{this.state.gptResponse.choices[0].message.content}</p>
           <button onClick={this.copyToClipboard}>Copiar al portapapeles</button>
           <button onClick={this.closeModal}>Cerrar</button>
         </Modal>
