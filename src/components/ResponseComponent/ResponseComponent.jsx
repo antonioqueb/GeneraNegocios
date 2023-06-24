@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import './ResponseComponent.css';
 import Modal from 'react-modal';
-import { Configuration, OpenAIApi } from 'openai';
 
 Modal.setAppElement('#root'); // Esta línea se necesita para la accesibilidad
-
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-const openai = new OpenAIApi(configuration);
 
 class ResponseComponent extends Component {
   constructor(props) {
@@ -40,9 +33,17 @@ class ResponseComponent extends Component {
     };
 
     try {
-      const response = await openai.complete('davinci', requestBody);
-      const data = response.choices[0].text;
-      this.setState({ gptResponse: data, modalIsOpen: true });
+      const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      const data = await response.json();
+      this.setState({ gptResponse: data.choices[0].text, modalIsOpen: true });
     } catch (error) {
       console.error('Error:', error);
     }
