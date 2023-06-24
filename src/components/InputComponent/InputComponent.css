@@ -1,0 +1,36 @@
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%; 
+  }
+  
+  .input {
+    color: #8707ff;
+    border: 2px solid #8707ff;
+    border-radius: 10px;
+    padding: 10px 15px;
+    background: transparent;
+    width: 70%; 
+  }
+  
+  .input:active {
+    box-shadow: 2px 2px 15px #8707ff inset;
+  }
+  
+  .button {
+    display: end;
+    color: #8707ff;
+    border: 2px solid #8707ff;
+    border-radius: 10px;
+    padding: 10px 10px;
+    background: transparent;
+    width: 20%; 
+  }
+  
+  .button:active {
+    background-color: #360068;
+    color: #ffffff;
+
+
+  }

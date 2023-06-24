@@ -1,24 +1,35 @@
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import queb from '/2.jpg'
+import logotipo from '/logo.png'
 import './App.css'
+
+
+//components
+
+import App1 from './components/InputComponent/InputComponent'
 
 function App() {
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-          <img src={queb} className="logo" alt="Vite logo" />
+        <a href="/" target="_blank">
+      
+          <img src={logotipo} className="logo" alt="Vite logo" />
 
         </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        
+        <App1/>
+        
+
+
       </div>
-      <h1>Vite + React</h1>
+
+
+
+
+
       <div className="card">
-        <p>Choo Choo! This is an example of a Vite + React app running on Railway.</p>
+        <p>Desarrollado por Antonio Queb</p>
       </div>
     </>
   )
