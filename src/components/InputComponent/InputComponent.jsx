@@ -74,9 +74,11 @@ function App1() {
           
           <button onClick={handleGenerate} className="button">Generar</button>
 
-          {showResponse && <ResponseComponent answers={answers} />}
         </div>
+        {showResponse && <ResponseComponent answers={answers} />}
+
         </div>
+        
       )}
     </div>
   );
