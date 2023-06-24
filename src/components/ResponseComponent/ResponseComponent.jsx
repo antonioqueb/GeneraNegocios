@@ -33,13 +33,13 @@ class ResponseComponent extends Component {
     };
 
     const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer OPENAI_API_KEY' // Recuerda reemplazar esto con tu clave API real
-      },
-      body: JSON.stringify(requestBody)
-    });
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+        },
+        body: JSON.stringify(requestBody)
+      });
 
     const data = await response.json();
     this.setState({ gptResponse: data.choices[0].text, modalIsOpen: true });
