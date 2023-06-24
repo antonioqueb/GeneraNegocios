@@ -3,6 +3,9 @@ import './ResponseComponent.css';
 import Modal from 'react-modal';
 import { Configuration, OpenAIApi } from "openai";
 
+require('dotenv').config();
+
+
 Modal.setAppElement('#root'); // Esta línea se necesita para la accesibilidad
 
 class ResponseComponent extends Component {
