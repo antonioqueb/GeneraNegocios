@@ -46,7 +46,7 @@ class ResponseComponent extends Component {
       if (!response.ok) throw new Error(response.statusText);
   
       const data = await response.json();
-      this.setState({ gptResponse: data, modalIsOpen: true });
+      this.setState({ gptResponse: data.content, modalIsOpen: true });
   
     } catch (error) {
       console.error('Error:', error);
@@ -71,7 +71,7 @@ class ResponseComponent extends Component {
           contentLabel="Idea de Negocio Generada"
         >
           <h2>Idea de Negocio Generada</h2>
-          <p>{this.state.gptResponse.choices[0].message.content}</p>
+          <p>{this.state.gptResponse}</p>
           <button onClick={this.copyToClipboard}>Copiar al portapapeles</button>
           <button onClick={this.closeModal}>Cerrar</button>
         </Modal>
@@ -81,3 +81,4 @@ class ResponseComponent extends Component {
 }
 
 export default ResponseComponent;
+//ok
