@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import './ResponseComponent.css';
 import Modal from 'react-modal';
+import { Configuration, OpenAIApi } from 'openai';
 
 Modal.setAppElement('#root'); // Esta línea se necesita para la accesibilidad
+
+const configuration = new Configuration({
+  organization: 'org-Ypd7CxP5BN0mCzEXcWCvREwr',
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
 
 class ResponseComponent extends Component {
   constructor(props) {
@@ -25,24 +33,20 @@ class ResponseComponent extends Component {
 
   async getGptResponse() {
     const requestBody = {
-      'prompt': `Generar idea de negocio basada en:
+      prompt: `Generar idea de negocio basada en:
       Pasión/Actividad: ${this.props.answers.question1}
       Habilidades/Experiencias: ${this.props.answers.question2}
       Clientes/Competencia: ${this.props.answers.question3}`,
-      'max_tokens': 200,
+      max_tokens: 200,
     };
 
-    const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
-        },
-        body: JSON.stringify(requestBody)
-      });
-
-    const data = await response.json();
-    this.setState({ gptResponse: data.choices[0].text, modalIsOpen: true });
+    try {
+      const response = await openai.completions.create(requestBody);
+      const data = response.choices[0].text;
+      this.setState({ gptResponse: data, modalIsOpen: true });
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 
   closeModal = () => {
