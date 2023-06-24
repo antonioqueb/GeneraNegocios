@@ -12,11 +12,11 @@ function App() {
   return (
     <>
       <div>
-        <a href="/" target="_blank">
+        
       
           <img src={logotipo} className="logo" alt="Vite logo" />
 
-        </a>
+        
         
         <App1/>
         

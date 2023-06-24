@@ -43,7 +43,9 @@ class ResponseComponent extends Component {
       });
 
       const data = await response.json();
-      this.setState({ gptResponse: data.choices[0].text, modalIsOpen: true });
+      const gptResponse = data.choices[0].text;
+      this.setState({ gptResponse, modalIsOpen: true });
+      this.props.onResponseGenerated(gptResponse); // Llama a la función proporcionada a través de props
     } catch (error) {
       console.error('Error:', error);
     }
