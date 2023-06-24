@@ -46,12 +46,17 @@ class ResponseComponent extends Component {
       if (!response.ok) throw new Error(response.statusText);
   
       const data = await response.json();
-      this.setState({ gptResponse: data.content, modalIsOpen: true });
+      if (data && data.content) {
+        this.setState({ gptResponse: data.content, modalIsOpen: true });
+      } else {
+        console.error('Invalid response:', data);
+      }
   
     } catch (error) {
       console.error('Error:', error);
     }
   }
+  
   
 
   closeModal = () => {
