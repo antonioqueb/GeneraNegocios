@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <div>
-        
+        <h1>Genera una idea de negocio ganadora en 3 pasos!</h1>
       
           <img src={logotipo} className="logo" alt="Vite logo" />
 
