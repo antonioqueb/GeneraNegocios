@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import './InputComponent.css'; // Reemplaza "tu-archivo-de-estilo.css" con el nombre de tu archivo CSS
+import ResponseComponent from '../ResponseComponent/ResponseComponent'; // Asegúrate de usar la ruta correcta
+
 
 
 function App1() {
@@ -71,7 +73,10 @@ function App1() {
             className="input" // Agrega la clase "input" al input
           />
           
-        <button onClick={handleGenerate} className="button">Generar</button> {/* Añade la clase "button" al botón */}
+          <button onClick={handleGenerate} className="button">Generar</button>
+
+          {showResponse && <ResponseComponent answers={answers} />}
+
         </div>
         </div>
       )}
