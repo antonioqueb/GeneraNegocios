@@ -3,7 +3,7 @@ import './ResponseComponent.css';
 import Modal from 'react-modal';
 import { Configuration, OpenAIApi } from 'openai';
 
-Modal.setAppElement('#root'); // Esta línea se necesita para la accesibilidad
+Modal.setAppElement('#root'); // Esta línea se necesita para la accesibilidad 
 
 const configuration = new Configuration({
   organization: 'org-Ypd7CxP5BN0mCzEXcWCvREwr',
@@ -19,7 +19,7 @@ class ResponseComponent extends Component {
       gptResponse: '',
       modalIsOpen: false,
     };
-  }
+  } 
 
   componentDidMount() {
     this.getGptResponse();
