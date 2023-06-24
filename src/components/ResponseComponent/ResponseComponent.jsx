@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
 import './ResponseComponent.css';
 import Modal from 'react-modal';
-import { Configuration, OpenAIApi } from 'openai';
 
 Modal.setAppElement('#root'); // Esta línea se necesita para la accesibilidad
-
-const configuration = new Configuration({
-    organization: 'org-Ypd7CxP5BN0mCzEXcWCvREwr',
-    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
-  });
-
-const openai = new OpenAIApi(configuration);
 
 class ResponseComponent extends Component {
   constructor(props) {
@@ -43,13 +35,24 @@ class ResponseComponent extends Component {
     };
   
     try {
-      const response = await openai.createChatCompletion(requestBody);
-      const data = response.data.choices[0].message.content;
+      const response = await fetch('https://expressjs-server-production-af45.up.railway.app/api/completion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+  
+      if (!response.ok) throw new Error(response.statusText);
+  
+      const data = await response.json();
       this.setState({ gptResponse: data, modalIsOpen: true });
+  
     } catch (error) {
       console.error('Error:', error);
     }
   }
+  
 
   closeModal = () => {
     this.setState({ modalIsOpen: false });
