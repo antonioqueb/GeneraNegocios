@@ -6,9 +6,9 @@ import { Configuration, OpenAIApi } from 'openai';
 Modal.setAppElement('#root'); // Esta línea se necesita para la accesibilidad
 
 const configuration = new Configuration({
-  organization: 'org-Ypd7CxP5BN0mCzEXcWCvREwr',
-  apiKey: process.env.OPENAI_API_KEY,
-});
+    organization: 'org-Ypd7CxP5BN0mCzEXcWCvREwr',
+    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+  });
 
 const openai = new OpenAIApi(configuration);
 
