@@ -10,6 +10,7 @@
     "start": "serve dist -s -n -L -p $PORT"
   },
   "dependencies": {
+    "openai": "^3.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
