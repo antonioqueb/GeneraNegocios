@@ -38,7 +38,7 @@ class ResponseComponent extends Component {
 
     try {
       // Simulación de la carga de la API
-      await new Promise(resolve => setTimeout(resolve, 10000));
+      await new Promise(resolve => setTimeout(resolve, 1));
 
       const response = await fetch('https://expressjs-server-production-af45.up.railway.app/api/completion', {
         method: 'POST',
