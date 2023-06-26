@@ -28,11 +28,11 @@ class ResponseComponent extends Component {
     const requestBody = {
       model: "gpt-3.5-turbo",
       messages: [
-        { role: "system", content: "Generar idea de negocio basada en:" },
-        { role: "user", content: `Pasión/Actividad: ${this.props.answers.question1}` },
-        { role: "user", content: `Habilidades/Experiencias: ${this.props.answers.question2}` },
-        { role: "user", content: `Clientes/Competencia: ${this.props.answers.question3}` },
-        { role: "user", content: " y Crea un producto minimo viable explicando como lo puede testear en el mercado, se muy sintetizado con tu respuesta:" },
+        { role: "system", content: "Vamos a generar una idea de negocio. Para hacerlo, necesitamos considerar varios factores:" },
+        { role: "system", content: `Primero, piensa en tus pasiones o actividades preferidas: ${this.props.answers.question1}. ¿Cómo podrías convertir eso en una empresa o un producto?` },
+        { role: "system", content: `Segundo, considera tus habilidades y experiencias: ${this.props.answers.question2}. ¿Cómo se aplican a tu idea de negocio?` },
+        { role: "system", content: `Tercero, reflexiona sobre tus posibles clientes y la competencia: ${this.props.answers.question3}. ¿Cómo podrías diferenciarte y atraer a tu público objetivo?` },
+        { role: "system", content: "Finalmente, con todos estos factores en mente, intenta crear un producto mínimo viable. ¿Cómo se vería? ¿Cómo podrías probarlo en el mercado de manera efectiva? Recuerda, mantén tu respuesta sintetizada y enfocada."},
       ],
     };
 
